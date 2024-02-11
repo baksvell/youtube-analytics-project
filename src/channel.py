@@ -18,9 +18,42 @@ class Channel:
         self.title = snippet["title"]
         self.description = snippet["description"]
         self.url = f'https://youtube.com/{snippet["customUrl"]}'
-        self.subscribers_count = statistics["subscriberCount"]
-        self.video_count = statistics["videoCount"]
-        self.view_count = statistics["viewCount"]
+        self.subscribers_count = int(statistics["subscriberCount"])
+        self.video_count = int(statistics["videoCount"])
+        self.view_count = int(statistics["viewCount"])
+
+    def __str__(self) -> str:
+        """Возвращает название канала и ссылку."""
+        return f"{self.title} ({self.url})"
+
+    def __add__(self, other) -> int:
+        """Возвращает общее количество подписчиков."""
+        return self.subscribers_count + other.subscribers_count
+
+    def __sub__(self, other) -> int:
+        """Возвращает разность количества подписчиков."""
+        return self.subscribers_count - other.subscribers_count
+
+    def __gt__(self, other):
+        """Возвращает буллв тип при операции сравнения Больше"""
+        return self.subscribers_count > other.subscribers_count
+
+    def __ge__(self, other):
+        """Возвращает буллв тип при операции сравнения Больше или Равно"""
+        return self.subscribers_count >= other.subscribers_count
+
+    def __lt__(self, other):
+        """Возвращает буллв тип при операции сравнения Меньше"""
+        return self.subscribers_count < other.subscribers_count
+
+    def __le__(self, other):
+        """Возвращает буллв тип при операции сравнения Меньше или Равно"""
+        return self.subscribers_count <= other.subscribers_count
+
+    def __eq__(self, other):
+        """Возвращает буллв тип при операции сравнения Равенства"""
+        return self.subscribers_count == other.subscribers_count
+
 
     @classmethod
     def get_service(cls):
